@@ -60,7 +60,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nestjs_microservice
+    container_name: api-gateway
     ports:
       - '3000:3000'
     depends_on:
@@ -75,5 +75,19 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  user-microservice:
+    build:
+      context: .
+      dockerfile: ./apps/users/Dockerfile
+    container_name: user-microservice
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  products-microservice:
+    build:
+      context: .
+      dockerfile: ./apps/products/Dockerfile
+    container_name: products-microservice
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

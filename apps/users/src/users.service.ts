@@ -7,19 +7,14 @@ export class UsersService {
   constructor(private readonly postgresService: PostgresService) {}
 
   getUsers(): Observable<any> {
-    return of(this.postgresService.query('SELECT * FROM users'));
+    return from(this.postgresService.query('SELECT * FROM users')).pipe(
+      map((users) => {
+        return users;
+      }),
+    );
   }
 
   getUserById(id: number): Observable<any> {
-    // const userExists = this.postgresService.query(
-    //   'SELECT * FROM users WHERE id = $1',
-    //   [id],
-    // );
-
-    // if (!userExists) {
-    //   return of('User not found');
-    // }
-
     return from(
       this.postgresService.query('SELECT * FROM users WHERE id = $1', [id]),
     ).pipe(

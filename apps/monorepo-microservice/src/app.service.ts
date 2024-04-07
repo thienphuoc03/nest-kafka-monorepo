@@ -11,6 +11,10 @@ export class AppService {
     return this.usersService.send('get_user_by_id', id);
   }
 
+  getUsers(): any {
+    return this.usersService.send('get_users', '');
+  }
+
   createUser(payload: any): any {
     return this.usersService.send('create_user', payload);
   }

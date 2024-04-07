@@ -19,6 +19,7 @@ export class AppController implements OnModuleInit {
   onModuleInit() {
     this.usersService.subscribeToResponseOf('get_user_by_id');
     this.usersService.subscribeToResponseOf('create_user');
+    this.usersService.subscribeToResponseOf('get_users');
 
     this.usersService.connect();
   }
@@ -26,6 +27,11 @@ export class AppController implements OnModuleInit {
   @Get('users/:id')
   getUserById(@Param('id') id: number): any {
     return this.appService.getUserById(+id);
+  }
+
+  @Get('users')
+  getUsers(): any {
+    return this.appService.getUsers();
   }
 
   @Post('create-user')
